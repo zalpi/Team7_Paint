@@ -6,12 +6,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
 
 public class paint extends View {
-
 
     //for path
     private Path draw;
@@ -35,6 +36,9 @@ public class paint extends View {
 
     public enum TOOLS {BRUSH, LINE, RECTANGLE, ERASER, SAVE};
     private TOOLS currentSelected = TOOLS.BRUSH;
+
+    private boolean TrackingCenter;
+    private boolean HighlightCenter;
 
     public paint (Context context){
         super(context);

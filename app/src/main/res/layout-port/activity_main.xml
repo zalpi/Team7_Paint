@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <RadioGroup
-            android:id="@+id/radioGroup2"
+            android:id="@+id/selections"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/draw"
@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="load file" />
+
         </RadioGroup>
 
         <TextView
@@ -47,9 +48,18 @@
             android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioGroup2"
+            android:layout_below="@+id/selections"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="42dp"
             android:text="start" />
+
+        <Button
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/start"
+            android:layout_below="@+id/start"
+            android:layout_marginTop="11dp"
+            android:text="about" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
