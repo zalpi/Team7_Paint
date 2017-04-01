@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.csci4020.team7_paint.paint
+        android:id="@+id/draw"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_alignParentEnd="true" />
+
+    <RelativeLayout
+        android:id="@+id/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/draw"
+        android:background="@android:color/darker_gray">
+
+        <ImageButton
+            android:id="@+id/colorIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/brushIB"
+            android:layout_marginStart="18dp"
+            android:layout_toEndOf="@+id/brushIB"
+            app:srcCompat="@drawable/colors" />
+
+        <ImageButton
+            android:id="@+id/saveIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/colorIB"
+            android:layout_marginEnd="17dp"
+            app:srcCompat="@drawable/save" />
+
+        <ImageButton
+            android:id="@+id/brushIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/rectangleIB"
+            android:layout_marginStart="19dp"
+            android:layout_toEndOf="@+id/rectangleIB"
+            app:srcCompat="@drawable/brush" />
+
+        <ImageButton
+            android:id="@+id/rectangleIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/eraserIB"
+            android:layout_alignTop="@+id/eraserIB"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/eraserIB"
+            app:srcCompat="@drawable/rectangle" />
+
+        <ImageButton
+            android:id="@+id/lineIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/line" />
+
+        <ImageButton
+            android:id="@+id/eraserIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/lineIB"
+            android:layout_alignTop="@+id/lineIB"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/lineIB"
+            app:srcCompat="@drawable/eraser" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
