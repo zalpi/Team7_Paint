@@ -4,25 +4,26 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <com.csci4020.team7_paint.paint
-        android:id="@+id/draw"
+        android:id="@+id/canvas"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="550dp"
+        android:layout_above="@+id/tools"
         android:layout_alignParentEnd="true" />
 
     <RelativeLayout
         android:id="@+id/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/draw"
-        android:background="@android:color/darker_gray">
+        android:layout_width="500dp"
+        android:layout_height="50dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <ImageButton
             android:id="@+id/colorIB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/brushIB"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@+id/brushIB"
             app:srcCompat="@drawable/colors" />
 
@@ -30,17 +31,17 @@
             android:id="@+id/saveIB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/colorIB"
-            android:layout_marginEnd="17dp"
-            app:srcCompat="@drawable/save" />
+            app:srcCompat="@drawable/save"
+            android:layout_marginStart="18dp"
+            android:layout_alignTop="@+id/marker"
+            android:layout_toEndOf="@+id/marker" />
 
         <ImageButton
             android:id="@+id/brushIB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/rectangleIB"
-            android:layout_marginStart="19dp"
+            android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/rectangleIB"
             app:srcCompat="@drawable/brush" />
 
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/eraserIB"
             android:layout_alignTop="@+id/eraserIB"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="11dp"
             android:layout_toEndOf="@+id/eraserIB"
             app:srcCompat="@drawable/rectangle" />
 
@@ -70,9 +71,18 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/lineIB"
             android:layout_alignTop="@+id/lineIB"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/lineIB"
             app:srcCompat="@drawable/eraser" />
+
+        <ImageButton
+            android:id="@+id/marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/colorIB"
+            android:layout_marginStart="11dp"
+            android:layout_toEndOf="@+id/colorIB"
+            app:srcCompat="@drawable/marker" />
     </RelativeLayout>
 
 
