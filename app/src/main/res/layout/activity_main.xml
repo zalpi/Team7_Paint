@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/start_new"
-            android:src="@drawable/brush" />
+            android:src="@drawable/brush"
+            android:onClick="brushClicked"/>
         <ImageButton
             android:id="@+id/eraser_button"
             android:layout_width="wrap_content"

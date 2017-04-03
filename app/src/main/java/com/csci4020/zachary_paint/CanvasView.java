@@ -21,24 +21,13 @@ public class CanvasView extends View{
     public int width; //never used
     public int height; //never used
     private Bitmap mBitmap;
-    private Canvas mCanvas; //never used?
+    private Canvas mCanvas;
     private Path mPath;
     private Paint mPaint, mCanvasPaint;
     private float mX, mY;
     private int colorColor = Color.BLACK;   //initial color
     private static final float TOUCH_TOLERANCE = 5;
     Context context;
-
-//    //drawing path
-//    private Path drawPath;
-//    //drawing and canvas paint
-//    private Paint drawPaint, canvasPaint;
-//    //initial color
-////    private int paintColor = 0xFF660000;
-//    //canvas
-//    private Canvas drawCanvas;
-//    //canvas bitmap
-//    private Bitmap canvasBitmap;
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -54,9 +43,20 @@ public class CanvasView extends View{
         mPaint.setColor(colorColor);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeWidth(4f);
+        mPaint.setStrokeWidth(8f);
 
         mCanvasPaint = new Paint(Paint.DITHER_FLAG); //Paint flag that enables dithering when blitting. TT
+    }
+
+    public void growBigger() {      //It does what it says. This method is used to cycle between thickness.
+        invalidate();
+        if(mPaint.getStrokeWidth() == 8f) {
+            mPaint.setStrokeWidth(16f);
+        } else if(mPaint.getStrokeWidth() == 16f) {
+            mPaint.setStrokeWidth(32f);
+        } else if(mPaint.getStrokeWidth() == 32f) {
+            mPaint.setStrokeWidth(8f);
+        }
     }
 
     public void setColor(String newC) {

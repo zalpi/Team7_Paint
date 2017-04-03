@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
         canvasView = (CanvasView) findViewById(R.id.canvas);
 
-
-        //used to retrieve the first, non-color-picker, color. Which will be green since CanvasView has it set to black. Also personal tastes
-        LinearLayout colorLayout = (LinearLayout)findViewById(R.id.linearlay_colors);
-        currColor = (ImageButton)colorLayout.getChildAt(4); //Should be green, if ir's not green I have no idea what I'm doing.
-        //insert a way to show that the current color is chosen to the user here. Paid dlc idk
+//TODO: Remove fluff.
+//        //used to retrieve the first, non-color-picker, color. Which will be green since CanvasView has it set to black. Also personal tastes
+//        LinearLayout colorLayout = (LinearLayout)findViewById(R.id.linearlay_colors);
+//        currColor = (ImageButton)colorLayout.getChildAt(4); //Should be green, if ir's not green I have no idea what I'm doing.
+//        //insert a way to show that the current color is chosen to the user here. Paid dlc idk
 
 
 
@@ -65,10 +65,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void colorClicked(View v) { //method that goes off when the user clicks on the image buttons.
-        if (v != currColor) { //make sure that the user hasn't changed the same color or something.
+       // if (v != currColor) { //make sure that the user isn't spamming a button. Seems to cause the colors-switching to break.
             ImageButton imgColor = (ImageButton) v;
             String color = v.getTag().toString();   //retrieve the image button's tags that hold their color.
             canvasView.setColor(color);
-        }
+        //}
+    }
+    public void brushClicked(View v) {
+        canvasView.growBigger();
     }
 }
