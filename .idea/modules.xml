@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Team7_Paint.iml" filepath="$PROJECT_DIR$/Team7_Paint.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/verticalslidecolorpicker/verticalslidecolorpicker.iml" filepath="$PROJECT_DIR$/verticalslidecolorpicker/verticalslidecolorpicker.iml" />
     </modules>
   </component>
 </project>
