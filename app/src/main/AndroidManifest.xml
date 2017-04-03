@@ -17,10 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".DrawingActivity"
-            android:theme="@style/AppTheme"
-            android:label="@string/app_name">
+        <activity android:name=".about_app">
         </activity>
 
     </application>

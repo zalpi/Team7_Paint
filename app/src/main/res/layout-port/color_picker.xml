@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:andriod="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color_picker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.csci4020.team7_paint.selections
+        android:id="@+id/colorView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/colorwheel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="71dp" />
+
+    <Button
+        android:id="@+id/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/colorView"
+        android:layout_below="@+id/colorView"
+        android:layout_marginTop="66dp"
+        android:text="Default" />
+
+    <TextView
+        android:id="@+id/rgb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RGB:"
+        android:textSize="30sp"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/black" />
+
+    <TextView
+        android:id="@+id/what_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/rgb"
+        android:layout_alignBottom="@+id/rgb"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/black"
+        android:text="TextView"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/display"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/colorView"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="19dp"
+        andriod:srcCompat="@android:color/black" />
+</RelativeLayout>

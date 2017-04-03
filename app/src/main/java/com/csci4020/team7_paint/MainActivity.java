@@ -1,78 +1,102 @@
 package com.csci4020.team7_paint;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+/*IMPORTANT: Color picker and size thickness display, but will not change the color or size when drawing.*/
 
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
-        View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int button;
-    private boolean buttonChosen = false;
+    int defaultColor = Color.BLACK;
+    int drawThickness = 40;
+    drawing draw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawing_activity);
 
-        Button b = (Button) findViewById(R.id.start);
-        b.setOnClickListener(this);
-        RadioGroup rg = (RadioGroup) findViewById(R.id.selections);
-        rg.setOnClickListener(this);
-
-        findViewById(R.id.about).setOnClickListener(new informationDialog());
-
+        draw = (drawing) findViewById(R.id.canvas);
+        draw.list.setCurrent(defaultColor);
+        draw.list.setCurrentThick(drawThickness);
     }
 
     @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.start) {
-            if (buttonChosen == false) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("Please load a project or start a new one");
-                builder.setPositiveButton("OK", null);
+    public void onClick(View v) {
+        if (v.getId() == R.id.colorIB) {
+            Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.color_picker);
+            final selections cw = (selections) dialog.findViewById(R.id.colorView);
+            TextView tv = (TextView) dialog.findViewById(R.id.what_color);
+            ImageView im = (ImageView) dialog.findViewById(R.id.display);
+            Button b = (Button) dialog.findViewById(R.id.black);
+            cw.setOutput(tv, im, b, defaultColor);
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    defaultColor = cw.choice;
+                    draw.list.setCurrent(defaultColor);
+                }
+            });
 
-            else {
-                Intent intent = new Intent(getApplicationContext(), DrawingActivity.class);
-                        intent.putExtra("button", button);
-                startActivity(intent);
-            }
-        }
-    }
+            dialog.show();
+        } else if (v.getId() == R.id.brushIB) {
 
-    public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
-        if(checkId == R.id.new_file) {
-            buttonChosen = true;
-            button = 1;
-        }
-        if (checkId == R.id.load) {
-            buttonChosen = true;
-            button = 2;
-        }
-    }
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.size);
 
-    private class informationDialog implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            String message = "<html>" + "<h1>About App: <br></h1>" +
-                    "<h2>Programmers: <b>Briana Schmidt and Zachary Pigott</b>" +
-                    "</h2>" + "</html>";
-            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-            builder.setMessage(Html.fromHtml(message));
-            builder.setPositiveButton("OK", null);
+            SeekBar seek = (SeekBar) dialog.findViewById(R.id.sizes);
+            seek.setMax(6);
 
-            AlertDialog dialog = builder.create();
+            seek.setProgress(drawThickness);
+            seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
+
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    drawThickness = progress;
+                }
+            });
+
             dialog.show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==R.id.about)
+        {
+            Intent intent = new Intent(this,about_app.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
