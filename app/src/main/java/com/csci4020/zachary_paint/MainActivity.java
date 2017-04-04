@@ -1,8 +1,6 @@
 package com.csci4020.zachary_paint;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
