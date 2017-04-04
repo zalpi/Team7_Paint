@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker;

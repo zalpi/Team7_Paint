@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.provider.MediaStore;
 
 /**
  * Created by Pigott on 4/3/2017.
