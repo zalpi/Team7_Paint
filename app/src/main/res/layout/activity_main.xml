@@ -27,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/start_new"
-            android:src="@drawable/eraser" />
+            android:src="@drawable/eraser"
+            android:onClick="eraserClicked"/>
         <ImageButton
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
@@ -153,10 +154,10 @@
                 android:layout_width="25dp"
                 android:layout_height="100dp"
                 android:layout_margin="2dp"
-                android:background="#FFFFFFFF"
+                android:background="#7db5ff"
                 android:contentDescription="@string/color"
                 android:onClick="colorClicked"
-                android:tag="#FFFFFFFF" />
+                android:tag="#7db5ff" />
 
             <ImageButton
                 android:layout_width="25dp"

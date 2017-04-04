@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 
 import com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker;
 
+//TODO: Micro-transactions, idk.
+
 public class MainActivity extends AppCompatActivity {
 
     private  CanvasView canvasView;
@@ -22,13 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         canvasView = (CanvasView) findViewById(R.id.canvas);
-
-//TODO: Remove fluff.
-//        //used to retrieve the first, non-color-picker, color. Which will be green since CanvasView has it set to black. Also personal tastes
-//        LinearLayout colorLayout = (LinearLayout)findViewById(R.id.linearlay_colors);
-//        currColor = (ImageButton)colorLayout.getChildAt(4); //Should be green, if ir's not green I have no idea what I'm doing.
-//        //insert a way to show that the current color is chosen to the user here. Paid dlc idk
-
 
 
         //copy-pasta'd from https://github.com/veritas1/vertical-slide-color-picker since that's the library we're using.
@@ -65,13 +60,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void colorClicked(View v) { //method that goes off when the user clicks on the image buttons.
-       // if (v != currColor) { //make sure that the user isn't spamming a button. Seems to cause the colors-switching to break.
             ImageButton imgColor = (ImageButton) v;
             String color = v.getTag().toString();   //retrieve the image button's tags that hold their color.
             canvasView.setColor(color);
-        //}
     }
-    public void brushClicked(View v) {
+    public void eraserClicked(View v) {     //There isn't a fill tool, so the canvas is always default white.
+        canvasView.setColor("#FFFFFFFF");   //Thus, the eraser seems to be doing it's job when it's actually painting things white.
+    }
+
+    public void brushClicked(View v) {      //Acts on a cycle.
         canvasView.growBigger();
     }
 }
