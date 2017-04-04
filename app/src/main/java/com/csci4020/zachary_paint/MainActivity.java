@@ -1,11 +1,13 @@
 package com.csci4020.zachary_paint;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         canvasView = (CanvasView) findViewById(R.id.canvas);
         brushThick = (ImageButton) findViewById(R.id.brush_button);
 
+        findViewById(R.id.info_button).setOnClickListener(new AboutListener()); //set listener for info
 
         //copy-pasta'd from https://github.com/veritas1/vertical-slide-color-picker since that's the library we're using.
         final VerticalSlideColorPicker colorPicker = (VerticalSlideColorPicker) findViewById(R.id.color_picker);
@@ -126,6 +129,26 @@ public class MainActivity extends AppCompatActivity {
             brushThick.setImageResource(R.drawable.thicc);
         } else {
             brushThick.setImageResource(R.drawable.brush);  //Just in case it breaks or something.
+        }
+    }
+
+    private class AboutListener implements View.OnClickListener { //All you would ever want to know, maybe.
+        @Override
+        public void onClick(View v) {
+             /*Message in AlertDialog box when user clicks the info button*/
+            String message = "<html>" +
+                    "<p>Created by: Briana Schmidt and Zachary Pigott</p>" +
+                    "<p>Libraries used: Mark Charles's vertical-slide-color-picker</p>" +
+                    "<p>https://github.com/veritas1/vertical-slide-color-picker</p><br>" +
+                    "<p>The buttons on the app are (from left-to-right):</p>" +
+                    "<p>Info, Rotate,</p>" + "<p>Change Thickness, Eraser,</p>" +
+                    "<p>New Canvas, and Save</p>" + "</html>";
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setMessage(Html.fromHtml(message));
+            builder.setPositiveButton("Ok", null); //includes ok button
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }
