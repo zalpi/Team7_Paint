@@ -1,8 +1,6 @@
 package com.csci4020.zachary_paint;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker;
@@ -74,20 +71,7 @@ public class MainActivity extends AppCompatActivity {
         saveDialog.setMessage("Are you sure you want to save the current drawing?");
         saveDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
-                canvasView.setDrawingCacheEnabled(true);
-                String saveImage = MediaStore.Images.Media.insertImage(
-                        getContentResolver(), canvasView.getDrawingCache(),
-                        UUID.randomUUID().toString()+".png", "modernArt");
-                if(saveImage != null) {
-                    Toast crunchy = Toast.makeText(getApplicationContext(),
-                            "Save successful!", Toast.LENGTH_SHORT);
-                    crunchy.show();
-                } else {
-                    Toast burnt = Toast.makeText(getApplicationContext(),
-                            "Save unsuccessful!", Toast.LENGTH_SHORT);
-                    burnt.show();
-                }
-                canvasView.destroyDrawingCache();   //to prevent future drawings from using the same cache.
+                saveIt();
                 dialog.dismiss();
             }
         });
@@ -130,6 +114,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             brushThick.setImageResource(R.drawable.brush);  //Just in case it breaks or something.
         }
+    }
+
+    private void saveIt() { //saving method. With toast.  App needs to have permissions enabled.
+        Toast crunchy;
+        canvasView.setDrawingCacheEnabled(true);
+        String saveImage = MediaStore.Images.Media.insertImage(
+                getContentResolver(), canvasView.getDrawingCache(),
+                UUID.randomUUID().toString()+".png", "modernArt");
+        if(saveImage != null) {
+            crunchy = Toast.makeText(getApplicationContext(),
+                    "Save successful!", Toast.LENGTH_SHORT);
+        } else {
+            crunchy = Toast.makeText(getApplicationContext(),
+                    "Save unsuccessful!", Toast.LENGTH_SHORT);
+        }
+        crunchy.show();
+        canvasView.destroyDrawingCache();   //to prevent future drawings from using the same cache.
     }
 
     private class AboutListener implements View.OnClickListener { //All you would ever want to know, maybe.
