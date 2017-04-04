@@ -16,14 +16,15 @@ import com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker;
 public class MainActivity extends AppCompatActivity {
 
     private  CanvasView canvasView;
-    private ImageButton currColor;
-
+    private ImageButton currColor; //Might have been useful if ever get around to showing what color is active.
+    private ImageButton brushThick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         canvasView = (CanvasView) findViewById(R.id.canvas);
+        brushThick = (ImageButton) findViewById(R.id.brush_button);
 
 
         //copy-pasta'd from https://github.com/veritas1/vertical-slide-color-picker since that's the library we're using.
@@ -68,7 +69,17 @@ public class MainActivity extends AppCompatActivity {
         canvasView.setColor("#FFFFFFFF");   //Thus, the eraser seems to be doing it's job when it's actually painting things white.
     }
 
-    public void brushClicked(View v) {      //Acts on a cycle.
+    public void brushClicked(View v) {      //Increases/Decreases line thickness. Acts on a cycle.
         canvasView.growBigger();
+
+        if(canvasView.getStrokeW() == 8f) {
+            brushThick.setImageResource(R.drawable.thin);
+        } else if (canvasView.getStrokeW() == 16f) {
+            brushThick.setImageResource(R.drawable.thick);
+        } else if (canvasView.getStrokeW() == 32f) {
+            brushThick.setImageResource(R.drawable.thicc);
+        } else {
+            brushThick.setImageResource(R.drawable.brush);  //Just in case it breaks or something.
+        }
     }
 }

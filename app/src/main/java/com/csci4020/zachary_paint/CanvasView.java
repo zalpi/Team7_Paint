@@ -48,6 +48,10 @@ public class CanvasView extends View{
         mCanvasPaint = new Paint(Paint.DITHER_FLAG); //Paint flag that enables dithering when blitting. TT
     }
 
+    public float getStrokeW() {     //Since mPaint is private, use this to determine which image to use.
+        return mPaint.getStrokeWidth();
+    }
+
     public void growBigger() {      //It does what it says. This method is used to cycle between thickness.
         invalidate();
         if(mPaint.getStrokeWidth() == 8f) {
