@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:colorpicker="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    android:background="#303f9f"
+    tools:context="com.csci4020.zachary_paint.MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/info_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/info" />
+        <ImageButton
+            android:id="@+id/rotate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/rotate"
+            android:onClick="rotateClicked"/>
+        <ImageButton
+            android:id="@+id/brush_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/brush"
+            android:onClick="brushClicked"/>
+        <ImageButton
+            android:id="@+id/eraser_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/eraser"
+            android:onClick="eraserClicked"/>
+        <ImageButton
+            android:id="@+id/new_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/new_image"
+            android:onClick="clearCanvas"/>  <!-- calls the clearCanvas method to leave a blank canvas -->
+        <ImageButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/save"
+            android:onClick="saveCanvas"/>
+    </LinearLayout>
+
+    <com.csci4020.zachary_paint.CanvasView
+        android:id="@+id/canvas"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1"
+        android:background="#ffffff"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+
+    <com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker
+        android:id="@+id/color_picker"
+        android:layout_width="30dp"
+        android:layout_height="100dp"
+        colorpicker:borderColor="@android:color/black"
+        colorpicker:borderWidth="2dp"
+        colorpicker:colors="@array/default_colors"/> <!--This array is located in the colorpicker library -->
+
+        <!-- This gives a nice little line of colors to choose from, sorta like a cheap watercolor set -->
+
+        <LinearLayout
+            android:id="@+id/linearlay_colors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- This is the colorpicker's color--> <!-- copy-pasta'd from the github -->
+            <View
+                android:id="@+id/selected_color"
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                />
+
+            <!-- These are the default colors to choose from -->
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FF660000"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FF660000" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FFFF0000"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FFFF0000" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FFFFCC00"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FFFFCC00" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FF009900"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FF009900" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FF0000FF"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FF0000FF" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FF990099"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FF990099" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FFFF6666"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FFFF6666" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#7db5ff"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#7db5ff" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FF787878"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FF787878" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#FF000000"
+                android:contentDescription="@string/color"
+                android:onClick="colorClicked"
+                android:tag="#FF000000" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

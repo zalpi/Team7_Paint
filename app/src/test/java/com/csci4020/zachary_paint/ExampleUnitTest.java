@@ -1,4 +1,4 @@
-package com.csci4020.team7_paint;
+package com.csci4020.zachary_paint;
 
 import org.junit.Test;
 
