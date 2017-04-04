@@ -16,6 +16,13 @@
         android:orientation="horizontal" >
 
         <ImageButton
+            android:id="@+id/rotate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/rotate"
+            android:onClick="rotateClicked"/>
+        <ImageButton
             android:id="@+id/brush_button"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -30,19 +37,19 @@
             android:src="@drawable/eraser"
             android:onClick="eraserClicked"/>
         <ImageButton
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:contentDescription="@string/start_new"
-            android:src="@drawable/save"
-            android:onClick="saveCanvas"/>
-        <ImageButton
             android:id="@+id/new_button"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/start_new"
             android:src="@drawable/new_image"
             android:onClick="clearCanvas"/>  <!-- calls the clearCanvas method to leave a blank canvas -->
+        <ImageButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/start_new"
+            android:src="@drawable/save"
+            android:onClick="saveCanvas"/>
     </LinearLayout>
 
     <com.csci4020.zachary_paint.CanvasView

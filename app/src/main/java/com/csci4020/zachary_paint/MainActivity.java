@@ -106,6 +106,15 @@ public class MainActivity extends AppCompatActivity {
         canvasView.setColor("#FFFFFFFF");   //Thus, the eraser seems to be doing it's job when it's actually painting things white.
     }
 
+    public void rotateClicked(View v) { //Rotates the image in a CCW direction.
+        if(canvasView.getRotation() < 360f) {
+            canvasView.setRotation(canvasView.getRotation() + 90f);
+            if(canvasView.getRotation() == 360f) {
+                canvasView.setRotation(0f);     //this is to keep seemless rotation spamming.
+            }
+        }
+    }
+
     public void brushClicked(View v) {      //Increases/Decreases line thickness. Acts on a cycle.
         canvasView.growBigger();
 
