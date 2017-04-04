@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.provider.MediaStore;
 
 /**
  * Created by Pigott on 4/3/2017.
@@ -28,6 +30,8 @@ public class CanvasView extends View{
     private int colorColor = Color.BLACK;   //initial color
     private static final float TOUCH_TOLERANCE = 5;
     Context context;
+
+    private boolean rectangular = false; //planning to use this to determine if using the brush or not
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

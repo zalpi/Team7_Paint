@@ -2,14 +2,18 @@ package com.csci4020.zachary_paint;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.github.veritas1.verticalslidecolorpicker.VerticalSlideColorPicker;
+
+import java.util.UUID;
 
 //TODO: Micro-transactions, idk.
 
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         warnDialog.setMessage("Are you sure you want to start a new drawing? Current drawing will not be saved.");
         warnDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
-                canvasView.clearCanvas();;
+                canvasView.clearCanvas();
                 dialog.dismiss();
             }
         });
@@ -57,6 +61,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         warnDialog.show();
+
+    }
+
+    public void saveCanvas(View v) {
+        //Warning dialog informing the user that the current 'art' will be saved for posterity if they hit yes.
+        AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
+        saveDialog.setTitle("Confirmation");
+        saveDialog.setMessage("Are you sure you want to save the current drawing?");
+        saveDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                canvasView.setDrawingCacheEnabled(true);
+                String saveImage = MediaStore.Images.Media.insertImage(
+                        getContentResolver(), canvasView.getDrawingCache(),
+                        UUID.randomUUID().toString()+".png", "modernArt");
+                if(saveImage != null) {
+                    Toast crunchy = Toast.makeText(getApplicationContext(),
+                            "Save successful!", Toast.LENGTH_SHORT);
+                    crunchy.show();
+                } else {
+                    Toast burnt = Toast.makeText(getApplicationContext(),
+                            "Save unsuccessful!", Toast.LENGTH_SHORT);
+                    burnt.show();
+                }
+                canvasView.destroyDrawingCache();   //to prevent future drawings from using the same cache.
+                dialog.dismiss();
+            }
+        });
+        saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                dialog.cancel();
+            }
+        });
+        saveDialog.show();
 
     }
 
