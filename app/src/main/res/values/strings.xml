@@ -6,4 +6,7 @@
     <string name="erase">Erase</string>
     <string name="save">Save</string>
     <string name="color">Color</string>
+    <string name="rotate">Rotate</string>
+    <string name="info">Info</string>
+    <string name="rectangle">Rectangle</string>
 </resources>

@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public void RectangleClicked(View v) {
+        canvasView.setRect(); //by default false.
+    }
 
     public void brushClicked(View v) {      //Increases/Decreases line thickness. Acts on a cycle.
         canvasView.growBigger();

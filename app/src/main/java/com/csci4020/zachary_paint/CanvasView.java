@@ -7,9 +7,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.constraint.solver.widgets.Rectangle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,18 +22,17 @@ import android.view.View;
 
 public class CanvasView extends View{
 
-    public int width; //never used
-    public int height; //never used
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Path mPath;
     private Paint mPaint, mCanvasPaint;
+    private float endX,endY;
     private float mX, mY;
     private int colorColor = Color.BLACK;   //initial color
     private static final float TOUCH_TOLERANCE = 5;
     Context context;
 
-    private boolean rectangular = false; //planning to use this to determine if using the brush or not
+    private boolean isRectangle = false; //planning to use this to determine if using the brush or not
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -49,6 +51,10 @@ public class CanvasView extends View{
         mPaint.setStrokeWidth(8f);
 
         mCanvasPaint = new Paint(Paint.DITHER_FLAG); //Paint flag that enables dithering when blitting. TT
+    }
+
+    public void setRect() {
+        isRectangle = !isRectangle;
     }
 
     public float getStrokeW() {     //Since mPaint is private, use this to determine which image to use.
@@ -100,10 +106,21 @@ public class CanvasView extends View{
         float dy = Math.abs(y - mY);
 
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            mPath.quadTo(mX, mY, (x+mX)/2, (y+mY)/2);
-            mX = x;
-            mY = y;
+            if(isRectangle) {
+//                if(dx <= mX || dy <= mY) {    /* Doesn't work like expected. Looks better without. */
+//                    mPath.addRect(mX,mY,x,y, Path.Direction.CCW);   //this without updating upTouch with mCanvas.drawRect is cool
+//                } else {
+//                    mPath.addRect(mX, mY, x, y, Path.Direction.CW);   //this without updating upTouch with mCanvas.drawRect is cool
+//                }
+                endX = x;
+                endY = y;
+            } else {
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+                mX = x;
+                mY = y;
+            }
         }
+
     }
 
 
@@ -114,7 +131,11 @@ public class CanvasView extends View{
 
     private void upTouch() {
         mPath.lineTo(mX,mY);
-        mCanvas.drawPath(mPath,mPaint);
+        if(isRectangle) {
+            mCanvas.drawRect(mX,mY,endX,endY,mPaint);
+        } else {
+            mCanvas.drawPath(mPath, mPaint);
+        }
         mPath.reset();
     }
 
@@ -122,7 +143,8 @@ public class CanvasView extends View{
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
-
+        Log.i("COORD", "onTouchEvent: " + Float.toString(x) + " " + Float.toString(y));
+        Log.i("COORD", "mX/mY: " + Float.toString(mX) + " " + Float.toString(mY));
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startTouch(x, y);
