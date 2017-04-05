@@ -136,8 +136,7 @@ public class CanvasView extends View{
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
-        Log.i("COORD", "onTouchEvent: " + Float.toString(x) + " " + Float.toString(y));
-        Log.i("COORD", "mX/mY: " + Float.toString(mX) + " " + Float.toString(mY));
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startTouch(x, y);
