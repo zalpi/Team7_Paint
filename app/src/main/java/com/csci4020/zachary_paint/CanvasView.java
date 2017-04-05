@@ -25,7 +25,7 @@ public class CanvasView extends View{
     private static final float TOUCH_TOLERANCE = 5;
     Context context;
 
-    private boolean isRectangle = false; //planning to use this to determine if using the brush or not
+    protected boolean isRectangle = false; //planning to use this to determine if using the brush or not
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

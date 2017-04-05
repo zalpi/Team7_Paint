@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private  CanvasView canvasView;
     private ImageButton currColor; //Might have been useful if ever get around to showing what color is active.
     private ImageButton brushThick;
+    private ImageButton squareFour;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         canvasView = (CanvasView) findViewById(R.id.canvas);
         brushThick = (ImageButton) findViewById(R.id.brush_button);
+        squareFour = (ImageButton) findViewById(R.id.rectangle_button);
 
         findViewById(R.id.info_button).setOnClickListener(new AboutListener()); //set listener for info
 
@@ -103,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
     }
     public void RectangleClicked(View v) {
         canvasView.setRect(); //by default false.
+        switchRect();
+    }
+
+    private void switchRect() {
+        if (canvasView.isRectangle) {
+            squareFour.setImageResource(R.drawable.square2);
+        } else {
+            squareFour.setImageResource(R.drawable.square);
+        }
     }
 
     public void brushClicked(View v) {      //Increases/Decreases line thickness. Acts on a cycle.
