@@ -18,7 +18,7 @@ public class CanvasView extends View{
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Path mPath;
-    private Paint mPaint, mCanvasPaint;
+    private Paint mPaint;
     private float endX,endY;
     private float mX, mY;
     private int colorColor = Color.BLACK;   //initial color
@@ -42,8 +42,6 @@ public class CanvasView extends View{
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(8f);
-
-//        mCanvasPaint = new Paint(Paint.DITHER_FLAG); // Unnecessary since the paint can be null for onDraw()
     }
 
     public void setRect() {
