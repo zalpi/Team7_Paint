@@ -7,30 +7,25 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**
- * Created by Pigott on 4/3/2017.
- */
-
 public class CanvasView extends View{
 
-    public int width; //never used
-    public int height; //never used
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Path mPath;
-    private Paint mPaint, mCanvasPaint;
+    private Paint mPaint;
+    private float endX,endY;
     private float mX, mY;
     private int colorColor = Color.BLACK;   //initial color
     private static final float TOUCH_TOLERANCE = 5;
     Context context;
 
-    private boolean rectangular = false; //planning to use this to determine if using the brush or not
+    protected boolean isRectangle = false; //planning to use this to determine if using the brush or not
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -47,8 +42,10 @@ public class CanvasView extends View{
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(8f);
+    }
 
-        mCanvasPaint = new Paint(Paint.DITHER_FLAG); //Paint flag that enables dithering when blitting. TT
+    public void setRect() {
+        isRectangle = !isRectangle;
     }
 
     public float getStrokeW() {     //Since mPaint is private, use this to determine which image to use.
@@ -66,9 +63,9 @@ public class CanvasView extends View{
         }
     }
 
-    public void setColor(String newC) {
-        invalidate();
-        colorColor = Color.parseColor(newC);
+    public void setColor(String newC) {     //Makes sure the onDraw() method is called before changing
+        invalidate();                       //colors to prevent the previously drawn line from changing
+        colorColor = Color.parseColor(newC);//colors too.
         mPaint.setColor(colorColor);
 
     }
@@ -85,36 +82,48 @@ public class CanvasView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawBitmap(mBitmap, 0, 0, mCanvasPaint);
+        canvas.drawBitmap(mBitmap, 0, 0, null);     //Apparently the paint being null changes nothing noticeable.
         canvas.drawPath(mPath, mPaint);
     }
 
-    private void startTouch(float x, float y) {
-        mPath.moveTo(x,y);
+    private void startTouch(float x, float y) {    //updates the member values to reflect
+        mPath.moveTo(x,y);                         //where the starting touch coords were.
         mX = x;
         mY = y;
     }
 
     private void moveTouch(float x, float y) {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
+        float dx = Math.abs(x - mX);            //If the difference in movement is too great on touch
+        float dy = Math.abs(y - mY);            //treat it as if it didn't happen. Essentially.
 
-        if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            mPath.quadTo(mX, mY, (x+mX)/2, (y+mY)/2);
-            mX = x;
-            mY = y;
+        if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {        //This is mostly used so the brush doesn't act funny when removing your finger.
+            if(isRectangle) {
+                endX = x;   //Used to draw the end
+                endY = y;   //technically unnecessary since upTouch could just be changed to pass values into.
+            } else {
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);   //What allows brushwork.
+                mX = x;     //Updates the member values since the path is already updated so by updating
+                mY = y;     //the values of mX and mY allows TOUCH_TOLERANCE to work.
+            }
         }
+
     }
 
 
     public void clearCanvas() { //Clears the canvas. User doesn't have to know it isn't a brand new canvas.
-        mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);    /* Fill the entire canvas' bitmap (restricted
+                                                        to the current clip) with the specified color and
+                                                        porter-duff xfermode. */ /*PorterDuff is magic*/
         invalidate();
     }
 
     private void upTouch() {
         mPath.lineTo(mX,mY);
-        mCanvas.drawPath(mPath,mPaint);
+        if(isRectangle) {
+            mCanvas.drawRect(mX,mY,endX,endY,mPaint);   //Draws the rectangle.
+        } else {
+            mCanvas.drawPath(mPath, mPaint);            //Draws the brushline based off the path.
+        }
         mPath.reset();
     }
 

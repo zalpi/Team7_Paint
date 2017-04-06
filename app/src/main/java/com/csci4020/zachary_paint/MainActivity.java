@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private  CanvasView canvasView;
     private ImageButton currColor; //Might have been useful if ever get around to showing what color is active.
     private ImageButton brushThick;
+    private ImageButton squareFour;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         canvasView = (CanvasView) findViewById(R.id.canvas);
         brushThick = (ImageButton) findViewById(R.id.brush_button);
+        squareFour = (ImageButton) findViewById(R.id.rectangle_button);
 
         findViewById(R.id.info_button).setOnClickListener(new AboutListener()); //set listener for info
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public void clearCanvas(View v) {
         //Warning dialog informing the user that the current drawing will be erased if they hit 'confirm'.
         AlertDialog.Builder warnDialog = new AlertDialog.Builder(this);
-        warnDialog.setTitle("Confirmation");
+        warnDialog.setTitle("Clear?");
         warnDialog.setMessage("Are you sure you want to start a new drawing? Current drawing will not be saved.");
         warnDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveCanvas(View v) {
         //Warning dialog informing the user that the current 'art' will be saved for posterity if they hit yes.
         AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-        saveDialog.setTitle("Confirmation");
+        saveDialog.setTitle("Save?");
         saveDialog.setMessage("Are you sure you want to save the current drawing?");
         saveDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
@@ -99,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
             if(canvasView.getRotation() == 360f) {
                 canvasView.setRotation(0f);     //this is to keep seemless rotation spamming.
             }
+        }
+    }
+    public void RectangleClicked(View v) {
+        canvasView.setRect(); //by default false.
+        switchRect();
+    }
+
+    private void switchRect() {
+        if (canvasView.isRectangle) {
+            squareFour.setImageResource(R.drawable.square2);
+        } else {
+            squareFour.setImageResource(R.drawable.square);
         }
     }
 
