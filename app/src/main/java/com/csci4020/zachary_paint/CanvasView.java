@@ -82,7 +82,7 @@ public class CanvasView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawBitmap(mBitmap, 0, 0, null);     //AThe paint being null changes nothing noticeable.
+        canvas.drawBitmap(mBitmap, 0, 0, null);     //The paint being null changes nothing noticeable.
         canvas.drawPath(mPath, mPaint);
     }
 

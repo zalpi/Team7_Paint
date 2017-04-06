@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             String color = v.getTag().toString();   //retrieve the image button's tags that hold their color.
             canvasView.setColor(color);
     }
-    public void eraserClicked(View v) {     //There isn't a fill tool, so the canvas is always default white.
+    public void eraserClicked(View v) {     //There isn't a fill tool so the canvas is always default white.
         canvasView.setColor("#FFFFFFFF");   //Thus, the eraser seems to be doing it's job when it's actually painting things white.
     }
 
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     private void saveIt() { //saving method. With toast.  App needs to have permissions enabled.
         Toast crunchy;
         canvasView.setDrawingCacheEnabled(true);
-        String saveImage = MediaStore.Images.Media.insertImage(
+        String saveImage = MediaStore.Images.Media.insertImage(         //Magic.
                 getContentResolver(), canvasView.getDrawingCache(),
                 UUID.randomUUID().toString()+".png", "modernArt");
         if(saveImage != null) {
