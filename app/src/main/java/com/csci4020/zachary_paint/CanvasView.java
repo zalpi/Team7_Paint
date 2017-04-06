@@ -43,7 +43,7 @@ public class CanvasView extends View{
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(8f);
 
-        mCanvasPaint = new Paint(Paint.DITHER_FLAG); //Paint flag that enables dithering when blitting. TT
+//        mCanvasPaint = new Paint(Paint.DITHER_FLAG); // Unnecessary since the paint can be null for onDraw()
     }
 
     public void setRect() {
@@ -65,9 +65,9 @@ public class CanvasView extends View{
         }
     }
 
-    public void setColor(String newC) {
-        invalidate();
-        colorColor = Color.parseColor(newC);
+    public void setColor(String newC) {     //Makes sure the onDraw() method is called before changing
+        invalidate();                       //colors to prevent the previously drawn line from changing
+        colorColor = Color.parseColor(newC);//colors too.
         mPaint.setColor(colorColor);
 
     }
@@ -84,7 +84,7 @@ public class CanvasView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawBitmap(mBitmap, 0, 0, mCanvasPaint);
+        canvas.drawBitmap(mBitmap, 0, 0, null);     //Apparently the paint being null changes nothing noticeable.
         canvas.drawPath(mPath, mPaint);
     }
 
@@ -98,7 +98,7 @@ public class CanvasView extends View{
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
 
-        if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+        if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {        //This is mostly used so the brush doesn't act funny when removing your finger.
             if(isRectangle) {
 //                if(dx <= mX || dy <= mY) {    /* Doesn't work like expected. Looks better without. */
 //                    mPath.addRect(mX,mY,x,y, Path.Direction.CCW);   //this without updating upTouch with mCanvas.drawRect is cool
@@ -125,9 +125,9 @@ public class CanvasView extends View{
     private void upTouch() {
         mPath.lineTo(mX,mY);
         if(isRectangle) {
-            mCanvas.drawRect(mX,mY,endX,endY,mPaint);
+            mCanvas.drawRect(mX,mY,endX,endY,mPaint);   //Draws the rectangle.
         } else {
-            mCanvas.drawPath(mPath, mPaint);
+            mCanvas.drawPath(mPath, mPaint);            //Draws the brushline based off the path.
         }
         mPath.reset();
     }
