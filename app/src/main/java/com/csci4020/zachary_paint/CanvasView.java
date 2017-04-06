@@ -86,15 +86,15 @@ public class CanvasView extends View{
         canvas.drawPath(mPath, mPaint);
     }
 
-    private void startTouch(float x, float y) {
-        mPath.moveTo(x,y);
+    private void startTouch(float x, float y) {    //updates the member values to reflect
+        mPath.moveTo(x,y);                         //where the starting touch coords were.
         mX = x;
         mY = y;
     }
 
     private void moveTouch(float x, float y) {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
+        float dx = Math.abs(x - mX);            //If the difference in movement is too great on touch
+        float dy = Math.abs(y - mY);            //treat it as if it didn't happen. Essentially.
 
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {        //This is mostly used so the brush doesn't act funny when removing your finger.
             if(isRectangle) {
@@ -106,9 +106,9 @@ public class CanvasView extends View{
                 endX = x;
                 endY = y;
             } else {
-                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-                mX = x;
-                mY = y;
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);   //What allows brushwork.
+                mX = x;     //Updates the member values since the path is already updated so by updating
+                mY = y;     //the values of mX and mY allows TOUCH_TOLERANCE to work.
             }
         }
 
