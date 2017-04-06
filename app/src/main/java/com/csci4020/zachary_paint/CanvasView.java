@@ -98,13 +98,8 @@ public class CanvasView extends View{
 
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {        //This is mostly used so the brush doesn't act funny when removing your finger.
             if(isRectangle) {
-//                if(dx <= mX || dy <= mY) {    /* Doesn't work like expected. Looks better without. */
-//                    mPath.addRect(mX,mY,x,y, Path.Direction.CCW);   //this without updating upTouch with mCanvas.drawRect is cool
-//                } else {
-//                    mPath.addRect(mX, mY, x, y, Path.Direction.CW);   //this without updating upTouch with mCanvas.drawRect is cool
-//                }
-                endX = x;
-                endY = y;
+                endX = x;   //Used to draw the end
+                endY = y;   //technically unnecessary since upTouch could just be changed to pass values into.
             } else {
                 mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);   //What allows brushwork.
                 mX = x;     //Updates the member values since the path is already updated so by updating
@@ -116,7 +111,9 @@ public class CanvasView extends View{
 
 
     public void clearCanvas() { //Clears the canvas. User doesn't have to know it isn't a brand new canvas.
-        mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);    /* Fill the entire canvas' bitmap (restricted
+                                                        to the current clip) with the specified color and
+                                                        porter-duff xfermode. */ /* PorterDuff is magic */
         invalidate();
     }
 
