@@ -113,7 +113,7 @@ public class CanvasView extends View{
     public void clearCanvas() { //Clears the canvas. User doesn't have to know it isn't a brand new canvas.
         mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);    /* Fill the entire canvas' bitmap (restricted
                                                         to the current clip) with the specified color and
-                                                        porter-duff xfermode. */ /* PorterDuff is magic */
+                                                        porter-duff xfermode. */ /*PorterDuff is magic*/
         invalidate();
     }
 
